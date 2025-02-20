@@ -1,0 +1,32 @@
+models:
+  teacher:
+    name: "sentence-transformers/all-mpnet-base-v2"
+    dimension: 768
+  student:
+    name: "sentence-transformers/all-MiniLM-L6-v2"
+    dimension: 384
+
+dataset:
+  name: "scifact"
+  paths:
+    corpus: "data/scifact/corpus.jsonl"
+    queries: "data/scifact/queries.jsonl"
+    qrels: "data/scifact/qrels"
+
+qdrant:
+  host: "192.168.10.50"
+  port: 6333
+  collection: "scifact_kd"
+
+training:
+  batch_size: 32
+  epochs: 3
+  learning_rate:
+    student: 2e-5 
+    projection: 1e-4 
+  sim_weight: 0.1
+  device: "cpu"
+
+output:
+  model_dir: "models"
+  results_file: "results.xlsx"
